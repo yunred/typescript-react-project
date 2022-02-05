@@ -10,6 +10,8 @@ const PostList = () => {
 
   const { selected } = useParams();
   console.log(selected);
+  const { bookmark } = useParams();
+  console.log(bookmark);
 
   return (
     <>
@@ -19,9 +21,11 @@ const PostList = () => {
             <>
               {selected && selected === '전체게시판' ? (
                 <PostComponent post={post} />
-              ) : selected === post.category ? (
+              ) : selected && selected === post.category ? (
                 <PostComponent post={post} />
-              ) : !selected ? (
+              ) : bookmark && post.saved ? (
+                <PostComponent post={post} />
+              ) : !selected && !bookmark ? (
                 <PostComponent post={post} />
               ) : null}
             </>

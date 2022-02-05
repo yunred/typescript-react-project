@@ -8,7 +8,6 @@ import { useSelector, useDispatch } from 'react-redux';
 //   onInsert: (content: string) => void;
 // };
 const PostInsert = () => {
-  const posts = useSelector((state: RootState) => state.post);
   const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
   const [postContent, setPostContent] = useState<string>('');
