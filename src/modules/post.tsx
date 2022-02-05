@@ -64,7 +64,6 @@ const ADD_POST = 'ADD_POST' as const;
 const REMOVE_POST = 'REMOVE_POST' as const;
 const CHANGE_POST_SAVE = 'CHANGE_POST_SAVE' as const;
 const RESET_DUMMY_POST = 'RESET_DUMMY_POST' as const;
-
 export interface IAddPost {
   User: {
     id: string;
@@ -78,13 +77,14 @@ export const addPost = (data: IAddPost) => ({
   data,
 });
 
-export interface IremovePost {
+export interface IRemovePost {
   id: string;
 }
-export const removePost = (data: IremovePost) => ({
+export const removePost = (data: IRemovePost) => ({
   type: REMOVE_POST,
   data,
 });
+
 export const changePostSave = (data: Object) => ({
   type: CHANGE_POST_SAVE,
   data,
@@ -131,8 +131,6 @@ const post = (prevState = initialState, action: PostAction) => {
         console.log(initialState.length);
         draft.splice(0, initialState.length);
         draft.push(...initialState);
-
-        console.log('됐냐?');
         break;
     }
   });
