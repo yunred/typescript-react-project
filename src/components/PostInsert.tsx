@@ -1,8 +1,8 @@
 import React, { ChangeEvent, useState } from 'react';
 import { RootState } from 'modules';
 import { addPost, resetDummyPost } from 'modules/post';
-import { IPost } from 'modules/post';
 import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 // type PostInsertProps = {
 //   onInsert: (content: string) => void;
@@ -13,8 +13,11 @@ const PostInsert = () => {
   const [postContent, setPostContent] = useState<string>('');
   const [name, setName] = useState<string>('');
   const categoryList = ['전체게시판', '게시판1', '게시판2'];
-  const [selected, setSelected] = useState<string>(categoryList[0]);
-  console.log(user.userId);
+  const [selectedCategory, setSelectedCategory] = useState<string>(
+    categoryList[0]
+  );
+  const { selected } = useParams();
+
   const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === 'name') {
       setName(e.target.value);
@@ -29,23 +32,31 @@ const PostInsert = () => {
           id: user.userId,
           name: name,
         },
-        category: selected,
+        category: selected ? selected : selectedCategory,
         content: postContent,
       })
     );
   };
   const onChangeCategory = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSelected(e.target.value);
+    setSelectedCategory(e.target.value);
   };
   return (
     <>
       <div>
-        <select onChange={onChangeCategory} value={selected}>
-          {categoryList.map((item, idx) => (
-            <option value={item} key={idx}>
-              {item}
-            </option>
-          ))}
+        <select onChange={onChangeCategory} value={selectedCategory}>
+          {selected ? (
+            <>
+              <option value={selected}>{selected}</option>
+            </>
+          ) : (
+            <>
+              {categoryList.map((item, idx) => (
+                <option value={item} key={idx}>
+                  {item}
+                </option>
+              ))}
+            </>
+          )}
         </select>
 
         <input
