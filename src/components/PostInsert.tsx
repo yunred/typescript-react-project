@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 import { RootState } from 'modules';
-import { addPost } from 'modules/post';
+import { addPost, resetDummyPost } from 'modules/post';
 import { IPost } from 'modules/post';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -65,6 +65,9 @@ const PostInsert = () => {
         />
         <button type="button" onClick={onInsert}>
           등록
+        </button>
+        <button type="button" onClick={() => dispatch(resetDummyPost())}>
+          Dummy Post 초기화
         </button>
       </div>
     </>

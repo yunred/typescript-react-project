@@ -22,8 +22,8 @@ const PostList = () => {
           return (
             <>
               <div key={post.id}>
-                {post.category}
-                {post.User.name}
+                {post.category} ||
+                {post.User.name} ||
                 {post.content}
               </div>
               {post.User.id === user.userId ? (

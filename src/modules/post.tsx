@@ -18,23 +18,13 @@ export type PostState = IPost[];
 
 const initialState: PostState = [
   {
-    id: '1',
+    id: '4',
     User: {
-      id: '1',
-      name: '사람1',
-    },
-    category: '게시판1',
-    content: '첫 번째 게시글',
-    saved: false,
-  },
-  {
-    id: '2',
-    User: {
-      id: '2',
-      name: '사람2',
+      id: '4',
+      name: '사람4',
     },
     category: '전체게시판',
-    content: '두 번째 게시글',
+    content: '4444 번째 게시글',
     saved: false,
   },
   {
@@ -44,17 +34,28 @@ const initialState: PostState = [
       name: '사람3',
     },
     category: '게시판2',
-    content: '세 번째 게시글',
+    content: '33333 번째 게시글',
     saved: false,
   },
   {
-    id: '4',
+    id: '2',
     User: {
-      id: '4',
-      name: '사람4',
+      id: '2',
+      name: '사람2',
     },
     category: '전체게시판',
-    content: '네 번째 게시글',
+    content: '22222 번째 게시글',
+    saved: false,
+  },
+
+  {
+    id: '1',
+    User: {
+      id: '1',
+      name: '사람1',
+    },
+    category: '게시판1',
+    content: '11111 번째 게시글',
     saved: false,
   },
 ];
@@ -62,6 +63,7 @@ const initialState: PostState = [
 const ADD_POST = 'ADD_POST' as const;
 const REMOVE_POST = 'REMOVE_POST' as const;
 const CHANGE_POST_SAVE = 'CHANGE_POST_SAVE' as const;
+const RESET_DUMMY_POST = 'RESET_DUMMY_POST' as const;
 
 export interface IAddPost {
   User: {
@@ -88,10 +90,15 @@ export const changePostSave = (data: Object) => ({
   data,
 });
 
+export const resetDummyPost = () => ({
+  type: RESET_DUMMY_POST,
+});
+
 type PostAction =
   | ReturnType<typeof addPost>
   | ReturnType<typeof removePost>
-  | ReturnType<typeof changePostSave>;
+  | ReturnType<typeof changePostSave>
+  | ReturnType<typeof resetDummyPost>;
 
 const newPost = (data: any) => ({
   id: String(shortId.generate()),
@@ -119,6 +126,13 @@ const post = (prevState = initialState, action: PostAction) => {
         // console.log(action.data.id);
         break;
       case CHANGE_POST_SAVE:
+        break;
+      case RESET_DUMMY_POST:
+        console.log(initialState.length);
+        draft.splice(0, initialState.length);
+        draft.push(...initialState);
+
+        console.log('됐냐?');
         break;
     }
   });
