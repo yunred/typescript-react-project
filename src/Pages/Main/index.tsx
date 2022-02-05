@@ -4,6 +4,7 @@ import React, { FC } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PostInsert from 'components/PostInsert';
 import shortId from 'shortid';
+import PostList from 'components/PostList';
 
 const Main: FC = () => {
   const posts = useSelector((state: RootState) => state.post);
@@ -20,7 +21,7 @@ const Main: FC = () => {
     <>
       <>
         <PostInsert />
-        <input />
+        <PostList />
       </>
     </>
   );

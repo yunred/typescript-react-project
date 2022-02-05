@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 import { RootState } from 'modules';
-import post, { addPost } from 'modules/post';
+import { addPost } from 'modules/post';
 import { IPost } from 'modules/post';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -66,19 +66,6 @@ const PostInsert = () => {
         <button type="button" onClick={onInsert}>
           등록
         </button>
-      </div>
-      <div>
-        {posts.map((post: IPost, idx: number) => {
-          return (
-            <>
-              <div key={post.id}>
-                {post.category}
-                {post.User.name}
-                {post.content}
-              </div>
-            </>
-          );
-        })}
       </div>
     </>
   );
