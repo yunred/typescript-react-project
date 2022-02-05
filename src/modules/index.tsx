@@ -3,6 +3,7 @@ import { persistReducer } from 'redux-persist';
 import { PersistConfig } from 'redux-persist/es/types';
 import storage from 'redux-persist/lib/storage';
 import post from './post';
+import user from './user';
 
 const persistConfig: PersistConfig<any> = {
   key: 'root',
@@ -11,6 +12,7 @@ const persistConfig: PersistConfig<any> = {
 
 const rootReducer = combineReducers({
   post,
+  user,
 });
 
 export default persistReducer(persistConfig, rootReducer);
