@@ -13,6 +13,9 @@ const CategorySelect = () => {
       <li>
         <Link to="/category/게시판2">게시판2</Link>
       </li>
+      <li>
+        <Link to="/bookmark">저장한 게시물</Link>
+      </li>
     </>
   );
 };

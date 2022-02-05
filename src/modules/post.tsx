@@ -85,7 +85,7 @@ export const removePost = (data: IRemovePost) => ({
   data,
 });
 
-export const changePostSave = (data: Object) => ({
+export const changePostSave = (data: IRemovePost) => ({
   type: CHANGE_POST_SAVE,
   data,
 });
@@ -126,6 +126,8 @@ const post = (prevState = initialState, action: PostAction) => {
         // console.log(action.data.id);
         break;
       case CHANGE_POST_SAVE:
+        const selectPost = draft.findIndex(v => v.id === action.data.id);
+        draft[selectPost].saved = !draft[selectPost].saved;
         break;
       case RESET_DUMMY_POST:
         console.log(initialState.length);
