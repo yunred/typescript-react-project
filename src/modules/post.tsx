@@ -60,7 +60,6 @@ const initialState: PostState = [
 ];
 
 const ADD_POST = 'ADD_POST' as const;
-const CHANGE_POST_CONTENT = 'CHANGE_POST_CONTENT' as const;
 const REMOVE_POST = 'REMOVE_POST' as const;
 const CHANGE_POST_SAVE = 'CHANGE_POST_SAVE' as const;
 
@@ -76,11 +75,11 @@ export const addPost = (data: IAddPost) => ({
   type: ADD_POST,
   data,
 });
-export const changePostContent = (data: Object) => ({
-  type: CHANGE_POST_CONTENT,
-  data,
-});
-export const removePost = (data: Object) => ({
+
+export interface IremovePost {
+  id: string;
+}
+export const removePost = (data: IremovePost) => ({
   type: REMOVE_POST,
   data,
 });
@@ -91,7 +90,6 @@ export const changePostSave = (data: Object) => ({
 
 type PostAction =
   | ReturnType<typeof addPost>
-  | ReturnType<typeof changePostContent>
   | ReturnType<typeof removePost>
   | ReturnType<typeof changePostSave>;
 
@@ -113,9 +111,12 @@ const post = (prevState = initialState, action: PostAction) => {
         console.log(action.data.User.id);
         draft.unshift(newPost(action.data));
         break;
-      case CHANGE_POST_CONTENT:
-        break;
       case REMOVE_POST:
+        const index = draft.findIndex(v => v.id === action.data.id);
+        console.log(index);
+        draft.splice(index, 1);
+        // draft = draft.filter(v => v.id !== action.data.id);
+        // console.log(action.data.id);
         break;
       case CHANGE_POST_SAVE:
         break;
