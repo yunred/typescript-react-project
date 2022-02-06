@@ -3,6 +3,7 @@ import { RootState } from 'modules';
 import { addPost, resetDummyPost } from 'modules/post';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
 
 // type PostInsertProps = {
 //   onInsert: (content: string) => void;
@@ -19,6 +20,9 @@ const PostInsert = () => {
   const { selected } = useParams();
 
   const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
+  const onChangeTextArea = (e: ChangeEvent<HTMLTextAreaElement>) => {
     if (e.target.name === 'name') {
       setName(e.target.value);
     } else if (e.target.name === 'postContent') {
@@ -42,46 +46,102 @@ const PostInsert = () => {
   };
   return (
     <>
-      <div>
-        <select onChange={onChangeCategory} value={selectedCategory}>
-          {selected ? (
-            <>
-              <option value={selected}>{selected}</option>
-            </>
-          ) : (
-            <>
-              {categoryList.map((item, idx) => (
-                <option value={item} key={idx}>
-                  {item}
-                </option>
-              ))}
-            </>
-          )}
-        </select>
+      <PostInsertDiv>
+        <PostBtnDiv>
+          <button
+            className="reset_btn"
+            type="button"
+            onClick={() => dispatch(resetDummyPost())}
+          >
+            Dummy 초기화
+          </button>
+          <SelectBox onChange={onChangeCategory} value={selectedCategory}>
+            {selected ? (
+              <>
+                <option value={selected}>{selected}</option>
+              </>
+            ) : (
+              <>
+                {categoryList.map((item, idx) => (
+                  <option value={item} key={idx}>
+                    {item}
+                  </option>
+                ))}
+              </>
+            )}
+          </SelectBox>
+          <button className="submit_btn" type="button" onClick={onInsert}>
+            등록
+          </button>
+        </PostBtnDiv>
+        <NameInputDiv>
+          <NameInput
+            className="name_input"
+            type="text"
+            name="name"
+            value={name}
+            onChange={onChangeInput}
+            placeholder="이름을 입력하세요"
+          />
+        </NameInputDiv>
 
-        <input
-          type="text"
-          name="name"
-          value={name}
-          onChange={onChangeInput}
-          placeholder="이름을 입력하세요"
-        />
-        <input
-          type="text"
+        <ContentInput
+          className="content_input"
           name="postContent"
           value={postContent}
-          onChange={onChangeInput}
+          onChange={onChangeTextArea}
           placeholder="내용을 입력하세요"
         />
-        <button type="button" onClick={onInsert}>
-          등록
-        </button>
-        <button type="button" onClick={() => dispatch(resetDummyPost())}>
-          Dummy Post 초기화
-        </button>
-      </div>
+      </PostInsertDiv>
     </>
   );
 };
+
+const PostInsertDiv = styled.div`
+  width: 80%;
+  padding-bottom: 20px;
+`;
+const PostBtnDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+  }
+  .reset_btn {
+    color: gray;
+  }
+`;
+
+const SelectBox = styled.select`
+  width: 100px;
+  height: 32px;
+  border: 0;
+  outline: none;
+`;
+const NameInputDiv = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+  margin-bottom: 10px;
+`;
+
+const NameInput = styled.input`
+  border: none;
+  border-bottom: 1px solid #f3f3f3;
+  height: 32px;
+  background-color: #ffffff;
+  outline: none;
+`;
+
+const ContentInput = styled.textarea`
+  border: 1px solid #f3f3f3;
+  height: 50px;
+  background-color: #ffffff;
+  outline: none;
+  width: 100%;
+`;
 
 export default PostInsert;
