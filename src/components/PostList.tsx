@@ -9,9 +9,7 @@ const PostList = () => {
   const posts = useSelector((state: RootState) => state.post);
 
   const { selected } = useParams();
-  console.log(selected);
   const { bookmark } = useParams();
-  console.log(bookmark);
 
   return (
     <>

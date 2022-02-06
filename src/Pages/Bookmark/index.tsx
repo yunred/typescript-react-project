@@ -1,12 +1,15 @@
 import CategorySelect from 'components/CategorySelect';
 import PostList from 'components/PostList';
 import React from 'react';
+import { WrapperDiv } from 'styles/layoutStyle';
 
 const Bookmark = () => {
   return (
     <>
-      <CategorySelect />
-      <PostList />
+      <WrapperDiv>
+        <CategorySelect />
+        <PostList />
+      </WrapperDiv>
     </>
   );
 };

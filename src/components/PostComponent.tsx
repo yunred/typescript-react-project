@@ -23,7 +23,7 @@ const PostComponent = ({ post }: Props) => {
     <>
       <PostComponentDiv key={post.id}>
         <PostInfo>
-          <span>{post.User.name}</span>
+          <span className="user_name">{post.User.name}</span>
           <span className="post_category">{post.category}</span>
         </PostInfo>
         <PostText>
@@ -49,16 +49,16 @@ const PostComponent = ({ post }: Props) => {
 };
 
 const PostComponentDiv = styled.div`
-  width: 80%;
+  width: 100%;
+  margin: 0 auto;
   margin-bottom: 10px;
   background-color: white;
 
   .post_hr {
     margin: 0 auto;
-    width: 90%;
     border: 0;
     height: 1px;
-    background-color: #e5e2e2;
+    background-color: #f5f5f5;
   }
 `;
 
@@ -68,6 +68,10 @@ const PostInfo = styled.div`
   justify-content: space-between;
   .post_category {
     color: gray;
+    font-size: 12px;
+  }
+  .user_name {
+    font-weight: 700;
   }
 `;
 const PostText = styled.div`
@@ -89,6 +93,9 @@ const BookMarkBtn = styled.button<activeType>`
   cursor: pointer;
   :hover {
     color: #969696;
+  }
+  :active {
+    color: black;
   }
   color: ${props => {
     if (props.active) {

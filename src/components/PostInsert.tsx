@@ -34,10 +34,10 @@ const PostInsert = () => {
       addPost({
         User: {
           id: user.userId,
-          name: name,
+          name: name ? name : '익명',
         },
         category: selected ? selected : selectedCategory,
-        content: postContent,
+        content: postContent ? postContent : '내용이 없습니다',
       })
     );
   };
@@ -47,6 +47,7 @@ const PostInsert = () => {
   return (
     <>
       <PostInsertDiv>
+        <hr />
         <PostBtnDiv>
           <button
             className="reset_btn"
@@ -56,7 +57,7 @@ const PostInsert = () => {
             Dummy 초기화
           </button>
           <SelectBox onChange={onChangeCategory} value={selectedCategory}>
-            {selected ? (
+            {selected && selected !== '전체게시판' ? (
               <>
                 <option value={selected}>{selected}</option>
               </>
@@ -98,8 +99,16 @@ const PostInsert = () => {
 };
 
 const PostInsertDiv = styled.div`
-  width: 80%;
-  padding-bottom: 20px;
+  width: 100%;
+  margin: 0 auto;
+  padding-bottom: 30px;
+  hr {
+    margin: 0 auto;
+    border: 0;
+    height: 1px;
+    background-color: #686868;
+    margin-bottom: 14px;
+  }
 `;
 const PostBtnDiv = styled.div`
   display: flex;
@@ -112,6 +121,13 @@ const PostBtnDiv = styled.div`
   }
   .reset_btn {
     color: gray;
+  }
+  .submit_btn {
+    padding-left: 6px;
+    padding-right: 6px;
+    :hover {
+      background-color: #d4d4d4;
+    }
   }
 `;
 

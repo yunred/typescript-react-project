@@ -115,7 +115,6 @@ const post = (prevState = initialState, action: PostAction) => {
   return produce(prevState, draft => {
     switch (action.type) {
       case ADD_POST:
-        console.log(action.data.User.id);
         draft.unshift(newPost(action.data));
         break;
       case REMOVE_POST:
@@ -130,7 +129,7 @@ const post = (prevState = initialState, action: PostAction) => {
         draft[selectPost].saved = !draft[selectPost].saved;
         break;
       case RESET_DUMMY_POST:
-        draft.splice(0, initialState.length);
+        draft.splice(0);
         draft.push(...initialState);
         break;
     }

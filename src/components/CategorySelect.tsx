@@ -21,7 +21,7 @@ const CategorySelect = () => {
   );
 };
 const CategorySelectUL = styled.ul`
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
   display: flex;
   text-align: center;
