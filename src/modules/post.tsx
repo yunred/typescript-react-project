@@ -130,7 +130,6 @@ const post = (prevState = initialState, action: PostAction) => {
         draft[selectPost].saved = !draft[selectPost].saved;
         break;
       case RESET_DUMMY_POST:
-        console.log(initialState.length);
         draft.splice(0, initialState.length);
         draft.push(...initialState);
         break;

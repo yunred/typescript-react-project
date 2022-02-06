@@ -4,6 +4,8 @@ import { IPost, removePost, changePostSave } from 'modules/post';
 import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import styled from 'styled-components';
 
 interface Props {
   post: IPost;
@@ -19,21 +21,92 @@ const PostComponent = ({ post }: Props) => {
   };
   return (
     <>
-      <div key={post.id}>
-        {post.category} ||
-        {post.User.name} ||
-        {post.content}
-      </div>
-      <button onClick={() => onChangeSave(post.id)}>
-        <FontAwesomeIcon icon={faBookmark} size="1x" />
-      </button>
-      {post.User.id === user.userId ? (
-        <button type="button" onClick={() => onRemovePost(post.id)}>
-          삭제
-        </button>
-      ) : null}
+      <PostComponentDiv key={post.id}>
+        <PostInfo>
+          <span>{post.User.name}</span>
+          <span className="post_category">{post.category}</span>
+        </PostInfo>
+        <PostText>
+          <span>{post.content}</span>
+        </PostText>
+        <BtnDiv>
+          <BookMarkBtn
+            active={post.saved}
+            onClick={() => onChangeSave(post.id)}
+          >
+            <FontAwesomeIcon icon={faBookmark} size="1x" />
+          </BookMarkBtn>
+          {post.User.id === user.userId ? (
+            <DeleteBtn type="button" onClick={() => onRemovePost(post.id)}>
+              <FontAwesomeIcon icon={faTrashAlt} size="1x" />
+            </DeleteBtn>
+          ) : null}
+        </BtnDiv>
+        <hr className="post_hr" />
+      </PostComponentDiv>
     </>
   );
 };
+
+const PostComponentDiv = styled.div`
+  width: 80%;
+  margin-bottom: 10px;
+  background-color: white;
+
+  .post_hr {
+    margin: 0 auto;
+    width: 90%;
+    border: 0;
+    height: 1px;
+    background-color: #e5e2e2;
+  }
+`;
+
+const PostInfo = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  .post_category {
+    color: gray;
+  }
+`;
+const PostText = styled.div`
+  word-wrap: break-word;
+  margin: 14px 0px;
+`;
+const BtnDiv = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+`;
+type activeType = {
+  active: boolean;
+};
+const BookMarkBtn = styled.button<activeType>`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  :hover {
+    color: #969696;
+  }
+  color: ${props => {
+    if (props.active) {
+      return 'black';
+    } else {
+      return 'rgb(212,212,212)';
+    }
+  }};
+`;
+
+const DeleteBtn = styled.button`
+  background-color: transparent;
+  border: none;
+  color: rgb(212, 212, 212);
+  cursor: pointer;
+  :hover {
+    color: #969696;
+  }
+`;
 
 export default PostComponent;
