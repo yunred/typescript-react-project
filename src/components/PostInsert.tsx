@@ -40,6 +40,8 @@ const PostInsert = () => {
         content: postContent ? postContent : '내용이 없습니다',
       })
     );
+    setName('');
+    setPostContent('');
   };
   const onChangeCategory = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedCategory(e.target.value);
