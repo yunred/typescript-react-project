@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import styled from 'styled-components';
+import * as S from 'styles/PostComponentStyle';
 
 interface Props {
   post: IPost;
@@ -21,99 +21,31 @@ const PostComponent = ({ post }: Props) => {
   };
   return (
     <>
-      <PostComponentDiv key={post.id}>
-        <PostInfo>
+      <S.PostComponentDiv key={post.id}>
+        <S.PostInfo>
           <span className="user_name">{post.User.name}</span>
           <span className="post_category">{post.category}</span>
-        </PostInfo>
-        <PostText>
+        </S.PostInfo>
+        <S.PostText>
           <span>{post.content}</span>
-        </PostText>
-        <BtnDiv>
-          <BookMarkBtn
+        </S.PostText>
+        <S.BtnDiv>
+          <S.BookMarkBtn
             active={post.saved}
             onClick={() => onChangeSave(post.id)}
           >
             <FontAwesomeIcon icon={faBookmark} size="1x" />
-          </BookMarkBtn>
+          </S.BookMarkBtn>
           {post.User.id === user.userId ? (
-            <DeleteBtn type="button" onClick={() => onRemovePost(post.id)}>
+            <S.DeleteBtn type="button" onClick={() => onRemovePost(post.id)}>
               <FontAwesomeIcon icon={faTrashAlt} size="1x" />
-            </DeleteBtn>
+            </S.DeleteBtn>
           ) : null}
-        </BtnDiv>
+        </S.BtnDiv>
         <hr className="post_hr" />
-      </PostComponentDiv>
+      </S.PostComponentDiv>
     </>
   );
 };
-
-const PostComponentDiv = styled.div`
-  width: 100%;
-  margin: 0 auto;
-  margin-bottom: 10px;
-  background-color: white;
-
-  .post_hr {
-    margin: 0 auto;
-    border: 0;
-    height: 1px;
-    background-color: #f5f5f5;
-  }
-`;
-
-const PostInfo = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  .post_category {
-    color: gray;
-    font-size: 12px;
-  }
-  .user_name {
-    font-weight: 700;
-  }
-`;
-const PostText = styled.div`
-  word-wrap: break-word;
-  margin: 14px 0px;
-`;
-const BtnDiv = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-`;
-type activeType = {
-  active: boolean;
-};
-const BookMarkBtn = styled.button<activeType>`
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  :hover {
-    color: #969696;
-  }
-  :active {
-    color: black;
-  }
-  color: ${props => {
-    if (props.active) {
-      return 'black';
-    } else {
-      return 'rgb(212,212,212)';
-    }
-  }};
-`;
-
-const DeleteBtn = styled.button`
-  background-color: transparent;
-  border: none;
-  color: rgb(212, 212, 212);
-  cursor: pointer;
-  :hover {
-    color: #969696;
-  }
-`;
 
 export default PostComponent;
